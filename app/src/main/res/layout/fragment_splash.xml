@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayoutSplash"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/splash_gradient"
     tools:context=".Splash">
 
@@ -19,63 +19,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
-
-
-        <TextView
-            android:id="@+id/splashHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:fontFamily="@font/spicy_rice"
-            android:gravity="center"
-            android:text="@string/appname"
-            android:textColor="#CFF4FD"
-            android:textSize="80sp" />
-
         <ImageView
+            android:layout_marginTop="250dp"
             android:id="@+id/logoSplash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/servologo" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/leftButton"
-                    android:layout_width="207dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="200dp"
-                    android:alpha="0.8"
-                    android:background="@drawable/splash_button"
-                    android:fontFamily="@font/spicy_rice"
-                    android:text="Login"
-                    android:textColor="@android:color/white"
-                    android:textColorHighlight="#21d4fd"
-                    android:textColorHint="#21d4fd"
-                    android:textColorLink="#03DAC5"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:id="@+id/rightButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="200dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/splash_button"
-                    android:fontFamily="@font/spicy_rice"
-                    android:text="Sign Up"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-        </RelativeLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/logoAnimation"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
