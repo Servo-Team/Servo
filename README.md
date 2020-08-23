@@ -1,4 +1,20 @@
-# Servo
+
+<style>
+#header {
+  display: block;
+  font-size: 5em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+</style>
+
+<p align="center"><a href="https://boneos.org" target="_blank"><img width="200"src="https://i.imgur.com/TNO0fqq.png"></a></p>
+<h1 align="center" id="header" style="color:#21d4fd">Servo</h1>
+
+
 
 Android project which allows users to pay for others services.
 
