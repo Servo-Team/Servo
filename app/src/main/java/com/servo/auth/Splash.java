@@ -60,7 +60,7 @@ public class Splash extends Fragment {
             public void run() {
                 navToLogin();
             }
-        }, 7000);
+        }, 5000);
 
         return view;
     }
