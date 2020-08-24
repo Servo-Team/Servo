@@ -12,11 +12,33 @@
 
 
     <EditText
-        android:id="@+id/registerEmail"
+        android:id="@+id/registerUser"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="300dp"
+        android:background="@drawable/round_border_button"
+        android:backgroundTint="#0A000000"
+        android:drawableStart="@drawable/ic_account_box"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:fontFamily="@font/acme"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/registerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="200dp"
         android:background="@drawable/round_border_button"
         android:backgroundTint="#0A000000"
         android:drawableStart="@drawable/ic_login_email"
@@ -33,27 +55,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/registerUser"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="200dp"
-        android:background="@drawable/round_border_button"
-        android:backgroundTint="#0A000000"
-        android:drawableStart="@drawable/ic_account_box"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:fontFamily="@font/acme"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:paddingLeft="5dp"
-        android:textColorHint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/passwordUserRegister"
