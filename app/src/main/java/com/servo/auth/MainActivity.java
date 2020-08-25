@@ -16,8 +16,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.servo.dialog.Dialog;
+import com.servo.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
+
+    protected Dialog main_dialog;
 
     public void animate_splash(View view){
         Animation splash_bg_animate = AnimationUtils.loadAnimation(this,R.anim.splash_bg_anim);
@@ -28,11 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //No back stack allowed in the authentication
+    @Override
+    public void onBackPressed() {}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        main_dialog = new Dialog(this);
 
     }
 }

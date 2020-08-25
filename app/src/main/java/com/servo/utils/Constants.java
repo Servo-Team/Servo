@@ -26,9 +26,16 @@ public class Constants {
     public static final String IP_ADDR = "192.168.1.197";
     public static final String PORT_NO = "1433";
     public static final String DRIVER_NET = "net.sourceforge.jtds.jdbc.Driver";
-    public static final String DB_NAME = "androidTestDB2";
+    public static final String DB_NAME = "Servo";
     public static final String DB_USERNAME = "aman";
     public static final String DB_PASSWORD = "root";
     public static final String DB_URL = "jdbc:jtds:sqlserver://"+IP_ADDR+":"+PORT_NO+"/"+DB_NAME;
+
+
+    /**
+     * Method ERROR CODES
+     */
+    public static final int SUCCESS = 100;
+    public static final int ERROR   = 50;
 
 }

@@ -29,10 +29,7 @@ import com.airbnb.lottie.value.SimpleLottieValueCallback;
 
 import java.util.Timer;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
+
 public class Splash extends Fragment {
 
     public void navToLogin() {

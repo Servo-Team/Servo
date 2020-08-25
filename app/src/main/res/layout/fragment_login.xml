@@ -12,7 +12,7 @@
 
 
     <EditText
-        android:id="@+id/registerUser"
+        android:id="@+id/loginUser"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginLeft="20dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/passwordUserRegister"
+        android:id="@+id/loginPassword"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginLeft="20dp"
@@ -74,10 +74,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/loginButton"
         android:layout_width="200dp"
         android:layout_height="35dp"
-        android:layout_marginTop="470dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/button_round"
         android:fontFamily="@font/acme"
         android:text="Login"
@@ -88,8 +88,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -98,18 +97,19 @@
         android:layout_marginTop="550dp"
         android:text="Forgot Password?"
         android:textColor="#2EAFF4"
+        android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/googleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="650dp"
+
         android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:src="@drawable/ic_google"
         app:backgroundTint="@android:color/white"
@@ -117,15 +117,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/facebookButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="650dp"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:cropToPadding="false"
         android:src="@drawable/ic_facebook"
@@ -135,14 +134,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:useCompatPadding="false" />
 
     <TextView
         android:id="@+id/loginToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="750dp"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/acme"
         android:text="New User? Register Now"
         android:textColor="#2EAFF4"
@@ -150,8 +148,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
