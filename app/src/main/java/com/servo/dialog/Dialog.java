@@ -8,6 +8,19 @@ import android.view.LayoutInflater;
 
 import com.servo.auth.R;
 
+/**
+ * <h1>Dialog</h1>
+ * <p>
+ *  Used as a base
+ *  unique dialog shared between
+ *  all the activities.
+ * </p>
+ *
+ *
+ * @author  Amanuel Bogale
+ * @version 0.1
+ * @since   2020-08-24
+ */
 public class Dialog {
 
     private Activity activity;
@@ -25,8 +38,7 @@ public class Dialog {
         startDialog(R.layout.error_alert);
     }
 
-
-    public void dismissDialog(){
+    public void dismissDialog() throws IllegalStateException{
         if(this.dialog != null) {
             this.dialog.dismiss();
         } else{
@@ -34,6 +46,11 @@ public class Dialog {
         }
     }
 
+    /**
+     * Starts a dialog which
+     * inside contains that layout.
+     * @param layout_id ID of the layout specified
+     */
     private void startDialog(int layout_id){
         AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
 

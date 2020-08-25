@@ -29,13 +29,20 @@ import com.airbnb.lottie.value.SimpleLottieValueCallback;
 
 import java.util.Timer;
 
-
+/**
+ * <h1>Splash</h1>
+ * <p>
+ *  Controller for Servo's
+ *  splash fragment
+ * </p>
+ *
+ * @author  Amanuel Bogale
+ * @version 0.1
+ * @since   2020-08-24
+ * @see     R.layout
+ */
 public class Splash extends Fragment {
 
-    public void navToLogin() {
-        NavController ctrl = NavHostFragment.findNavController(this);
-        ctrl.navigate(R.id.action_splash_to_login);
-    }
 
     @Nullable
     @Override
@@ -50,7 +57,8 @@ public class Splash extends Fragment {
             ((MainActivity)act).animate_splash(view);
         }
 
-
+        //After 5 seconds
+        //move on to the login page
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -62,4 +70,12 @@ public class Splash extends Fragment {
         return view;
     }
 
+    /**
+     * Simply navigates to the
+     * login page
+     */
+    private void navToLogin() {
+        NavController ctrl = NavHostFragment.findNavController(this);
+        ctrl.navigate(R.id.action_splash_to_login);
+    }
 }

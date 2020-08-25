@@ -2,7 +2,6 @@ package com.servo.auth;
 
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,32 +19,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.servo.database.Database;
 import com.servo.database.User;
 import com.servo.database.UserDatabase;
-import com.servo.utils.Constants;
-
-import org.apache.commons.io.FileUtils;
+import com.servo.utils.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 
 import java.net.URL;
 
-
+/**
+ * <h1>Register Servo</h1>
+ * <p>
+ *  Controller for Servo's
+ *  register fragment
+ * </p>
+ *
+ * @author  Amanuel Bogale
+ * @version 0.1
+ * @since   2020-08-24
+ * @see     R.layout
+ */
 public class Register extends Fragment {
 
     private View globalView;
@@ -57,6 +59,7 @@ public class Register extends Fragment {
         // Inflate the layout for this fragment
         globalView =  inflater.inflate(R.layout.fragment_register, container, false);
 
+        //On to_login text click go to login page
         TextView registerToLogin = (TextView) globalView.findViewById(R.id.registerToLoginText);
         registerToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +68,9 @@ public class Register extends Fragment {
             }
         });
 
+        //On register button click
+        //register successfully
         Button registerUserButton = (Button) globalView.findViewById(R.id.registerButton);
-
-
         registerUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,10 +92,20 @@ public class Register extends Fragment {
         return globalView;
     }
 
+    /**
+     * Main handler for
+     * registering users.
+     * Give them default values
+     * for each value except filled out
+     * forms(u-name,pass,etc...)
+     * @TODO make all username's unique
+     * @param view
+     */
     private void register_user(View view) {
 
         Database registerDB = new UserDatabase();
 
+        //User set all forms to user
         User user = new User();
         user.setUsername(((EditText)globalView.findViewById(R.id.registerUser)).getText().toString());
         user.setPassword(((EditText)globalView.findViewById(R.id.registerPassword)).getText().toString());
@@ -101,33 +114,10 @@ public class Register extends Fragment {
         user.setEmail(((EditText)globalView.findViewById(R.id.registerEmail)).getText().toString());
 
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //Set default avatar to the user
         try {
-            Bitmap image = null;
-            try {
-                URL url = new URL("https://i.imgur.com/m95zDY8.png");
-                image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            } catch(IOException e) {
-                System.out.println(e);
-            }
-
-            //create a file to write bitmap data
-            File f = new File(getContext().getCacheDir(), "avatar");
-            f.createNewFile();
-
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-            byte[] bitmapdata = bos.toByteArray();
-
-            //write the bytes in file
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-
+            File f = Image.convertUrlToFile(getContext(),"https://i.imgur.com/m95zDY8.png");
             user.setAvatar(f);
-
         } catch(IOException e){
             Log.e("SERVOERR", "DEFAULT AVATAR TRANSFORMATION ERROR : " + e.getMessage());
             e.printStackTrace();
@@ -137,6 +127,7 @@ public class Register extends Fragment {
         user.setFollowing(0);
         user.setFollowers(0);
 
+        //Finnaly insert user as a record
         try {
             registerDB.insertObj(user);
         } catch (SQLException e) {
@@ -148,6 +139,10 @@ public class Register extends Fragment {
         }
     }
 
+    /**
+     * Simply navigate to
+     * login page
+     */
     private void navToLogin() {
         NavController ctrl = NavHostFragment.findNavController(this);
         ctrl.navigate(R.id.action_register_to_login);

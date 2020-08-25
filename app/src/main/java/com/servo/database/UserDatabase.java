@@ -36,6 +36,12 @@ import java.util.List;
  */
 public class UserDatabase extends Database{
 
+    /**
+     * Inserts a user into the database
+     * as a record
+     * @param obj : user to be added
+     * @throws Exception
+     */
     @Override
     public void insertObj(Object obj) throws Exception {
         User user = (User) obj;
@@ -68,6 +74,12 @@ public class UserDatabase extends Database{
         }
     }
 
+    /**
+     * Gets all users from the database
+     * as a list of users.
+     * @return the list of all users registered!
+     * @throws Exception
+     */
     @Override
     public List<Object> getObjs() throws Exception {
 
@@ -98,6 +110,13 @@ public class UserDatabase extends Database{
         return users;
     }
 
+    /**
+     * Gets the specific user with the
+     * specified ID
+     * @param ID the ID of the user
+     * @return returns the user with the ID
+     * @throws Exception
+     */
     @Override
     public Object getObj(int ID) throws Exception {
         User user = new User();
@@ -125,7 +144,16 @@ public class UserDatabase extends Database{
         return user;
     }
 
-    public int getID(String username, String password) throws Exception{
+    /**
+     * Gets the ID of the user
+     * with the given username
+     * and password
+     * @param username Username of user
+     * @param password Password of user
+     * @return  returns the ID of the user
+     * @throws Exception
+     */
+    public int getIDUsername(String username, String password) throws Exception{
         User user = new User();
         Connection connection = connect();
 
@@ -133,6 +161,31 @@ public class UserDatabase extends Database{
         ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE USERNAME = '%s' AND   PASSWORD = '%s';",
                                                              username,
                                                              password));
+
+        while(rs.next()){
+            return rs.getInt("ID");
+        }
+
+        return -1;
+    }
+
+    /**
+     * Gets the ID of the user
+     * with the given email
+     * and password
+     * @param email    Email of user
+     * @param password Password of user
+     * @return  returns the ID of the user
+     * @throws Exception
+     */
+    public int getIDEmail(String email, String password) throws Exception{
+        User user = new User();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE EMAIL = '%s' AND   PASSWORD = '%s';",
+                email,
+                password));
 
         while(rs.next()){
             return rs.getInt("ID");

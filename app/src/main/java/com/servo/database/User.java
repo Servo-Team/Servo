@@ -19,6 +19,10 @@ import java.util.Date;
  * @since   2020-08-24
  */
 public class User {
+    /**
+     * All the properties
+     * of a user in Servo
+     */
     private String Username             = null;
     private String Email                = null;
     private String Password             = null;

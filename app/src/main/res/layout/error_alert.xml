@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/spicy_rice"
-        android:text="Error"
+        android:text="Incorrect"
         android:textColor="#B33B85"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/errorAnimation"

@@ -29,24 +29,50 @@ import com.servo.utils.Constants;
  */
 public abstract class Database {
 
+    /**
+     * Inserts an object
+     * which is a record into
+     * the specified database
+     * @param obj object to be inserted
+     * @throws Exception
+     */
     public abstract void insertObj(Object obj) throws Exception;
+
+    /**
+     * Gets all the records
+     * off the specified database
+     * @return returns all records
+     * @throws Exception
+     */
     public abstract List<Object> getObjs() throws Exception;
+
+    /**
+     * Gets the specific record
+     * with that ID which is
+     * unique
+     * @param ID ID of that record
+     * @return returns the unique record
+     * @throws Exception
+     */
     public abstract Object getObj(int ID) throws Exception;
 
+    /**
+     * General connection method
+     * implemented in the base class
+     * can be overriden in the subclasses
+     * @return returns the Connection object
+     *         after successfull connection
+     *         or NULL otherwise
+     * @throws Exception
+     */
     public Connection connect() throws Exception {
         Connection connection = null;
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-//            connection = DriverManager.getConnection(String.format("jdbc:jtds:sqlserver://%s:%s;databaseName=%s;", Constants.IP_ADDR,
-//                                                                                                                   Constants.PORT_NO,
-//                                                                                                                   Constants.DB_NAME),
-//                                                                                                                   Constants.DB_USERNAME,
-//                                                                                                                   Constants.DB_PASSWORD);
-            String ConnURL;
-            ConnURL = "jdbc:jtds:sqlserver://" + Constants.IP_ADDR +":"+Constants.PORT_NO+";"
+            Class.forName(Constants.DRIVER_NET).newInstance();
+            String ConnURL= "jdbc:jtds:sqlserver://" + Constants.IP_ADDR +":"+Constants.PORT_NO+";"
                     + "databaseName=" + Constants.DB_NAME + ";";
             connection = DriverManager.getConnection(ConnURL,Constants.DB_USERNAME,Constants.DB_PASSWORD);
 
@@ -55,16 +81,5 @@ public abstract class Database {
         }
 
         return connection;
-//        Connection connection = null;
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
-//
-//        Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-//        String ConnURL;
-//        ConnURL = "jdbc:jtds:sqlserver://" + Constants.IP_ADDR +":"+Constants.PORT_NO+";"
-//                + "databaseName=" + Constants.DB_NAME + ";";
-//        connection = DriverManager.getConnection(ConnURL,Constants.DB_USERNAME,Constants.DB_PASSWORD);
-//
-//        return connection;
     }
 }
