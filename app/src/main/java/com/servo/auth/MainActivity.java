@@ -2,22 +2,17 @@ package com.servo.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
 
-import com.google.android.material.navigation.NavigationView;
+
 import com.servo.dialog.Dialog;
-import com.servo.utils.Constants;
+import com.servo.home.HomeActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
         lyt.startAnimation(splash_bg_animate);
 
+    }
+
+    public void navToHomePage(Bundle bundle){
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+        finish();
     }
 
     //No back stack allowed in the authentication

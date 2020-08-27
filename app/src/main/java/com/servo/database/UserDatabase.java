@@ -1,9 +1,19 @@
 package com.servo.database;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
+
+import com.servo.utils.Constants;
+import com.servo.utils.Permission;
+
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -193,4 +203,43 @@ public class UserDatabase extends Database{
 
         return -1;
     }
+
+    public int isUsernameUnique(String username) throws Exception{
+        User user = new User();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE USERNAME = '%s';", username));
+
+        String other = null;
+        while(rs.next()){
+            other = rs.getString("USERNAME");
+        }
+        return (other!=null  && username.equals(other))?Constants.ERROR:Constants.SUCCESS;
+    }
+
+    public File getAvatar(String username, Activity act) throws Exception{
+        User user = new User();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(String.format("SELECT AVATAR FROM USERS WHERE USERNAME='%s';", username));
+
+        byte[] fileBytes;
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/profilepage.jpg");
+        if(!f.exists()) {
+            Permission.verifyStoragePermissions(act);
+            f.createNewFile();
+        }
+        FileOutputStream img = new FileOutputStream(f);
+        if(rs.next()){
+            fileBytes = rs.getBytes(1);
+            img.write(fileBytes);
+            img.close();
+        }
+
+        return f;
+    }
+
+
 }

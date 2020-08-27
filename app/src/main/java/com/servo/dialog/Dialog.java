@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.servo.auth.R;
 
@@ -30,12 +32,12 @@ public class Dialog {
         this.activity = activity;
     }
 
-    public void startSuccessDialog(){
-        startDialog(R.layout.success_alert);
+    public void startSuccessDialog(String text){
+        startDialog(R.layout.success_alert,text);
     }
 
-    public void startErrorDialog(){
-        startDialog(R.layout.error_alert);
+    public void startErrorDialog(String text){
+        startDialog(R.layout.error_alert,text);
     }
 
     public void dismissDialog() throws IllegalStateException{
@@ -51,11 +53,17 @@ public class Dialog {
      * inside contains that layout.
      * @param layout_id ID of the layout specified
      */
-    private void startDialog(int layout_id){
+    private void startDialog(int layout_id, String text){
         AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
 
         LayoutInflater inflator = activity.getLayoutInflater();
-        builder.setView(inflator.inflate(layout_id, null));
+        View view = inflator.inflate(layout_id, null);
+        if(layout_id == R.layout.error_alert) {
+            ((TextView) view.findViewById(R.id.errorText)).setText(text);
+        } else{
+            ((TextView) view.findViewById(R.id.successText)).setText(text);
+        }
+        builder.setView(view);
         builder.setCancelable(true);
 
         dialog = builder.create();

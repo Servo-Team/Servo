@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.servo.database.Database;
 import com.servo.database.User;
 import com.servo.database.UserDatabase;
+import com.servo.utils.Hash;
 
 
 /**
@@ -38,6 +39,7 @@ import com.servo.database.UserDatabase;
 public class Login extends Fragment {
 
     private View globalView;
+    private View dialogView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +81,7 @@ public class Login extends Fragment {
         int user_id = 0;
 
         String username = ((EditText) globalView.findViewById(R.id.loginUser)).getText().toString();
-        String password = ((EditText) globalView.findViewById(R.id.loginPassword)).getText().toString();
+        String password =  Hash.encodeBase64(((EditText) globalView.findViewById(R.id.loginPassword)).getText().toString());
         //Get the ID of user via
         //username and password
         try {
@@ -101,16 +103,21 @@ public class Login extends Fragment {
         //-1 means it hasnt found a user
         Handler handler = new Handler(Looper.getMainLooper());
         if(user_id!=-1){
-            ((MainActivity)act).main_dialog.startSuccessDialog();
+            ((MainActivity)act).main_dialog.startSuccessDialog("Logging in...");
 
+            final int finalUser_id = user_id;
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     ((MainActivity)act).main_dialog.dismissDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("USER_ID", finalUser_id);
+                    ((MainActivity)act).navToHomePage(bundle);
                 }
             }, 2500);
         } else{
-            ((MainActivity)act).main_dialog.startErrorDialog();
+
+            ((MainActivity)act).main_dialog.startErrorDialog("Invalid Username/Password");
 
             handler.postDelayed(new Runnable() {
                 @Override

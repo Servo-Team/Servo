@@ -1,6 +1,7 @@
 package com.servo.utils;
 
-import java.sql.Connection;
+
+import com.servo.auth.R;
 
 /**
  * <h1>Constants</h1>
@@ -16,7 +17,7 @@ import java.sql.Connection;
  * @version 0.1
  * @since   2020-08-24
  */
-public class Constants {
+public final class Constants {
 
     private Constants(){};
 
@@ -37,5 +38,39 @@ public class Constants {
      */
     public static final int SUCCESS = 100;
     public static final int ERROR   = 50;
+
+    public static String[] profile_list_title = {
+            "My Profile",
+            "Messages",
+            "Bookmarks",
+            "Moments",
+            "Settings"
+    };
+
+    public static int[] profile_list_image = {
+            R.drawable.ic_person,
+            R.drawable.ic_message,
+            R.drawable.ic_black_bookmark,
+            R.drawable.ic_moments_black,
+            R.drawable.ic_settings_black
+    };
+
+
+    public static String[] image_urls_profile = {
+            "https://cdn2.iconfinder.com/data/icons/people-80/96/Picture1-512.png",
+            "https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_chat_48px-512.png",
+            "https://www.materialui.co/materialIcons/action/bookmark_black_192x192.png",
+            "https://i.ibb.co/9hMD0d8/moment-removebg-preview.png",
+            "https://www.materialui.co/materialIcons/action/settings_black_192x192.png"
+    };
+
+    public static String[] image_options = {
+            "https://i.imgur.com/Xy9oA9F.png",
+            "https://i.imgur.com/YdG8UEm.png",
+            "https://i.imgur.com/Cdad8hc.png",
+            "https://i.imgur.com/yO7hepD.png",
+            "https://i.imgur.com/bliEn4L.png",
+            "https://i.imgur.com/U7ecrIL.png"
+    };
 
 }

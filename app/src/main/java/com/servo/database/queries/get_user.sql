@@ -6,3 +6,13 @@ WHERE ID = 1;
 SELECT * FROM USERS
 WHERE USERNAME = 'amanuel2'
 AND   PASSWORD = 'passwd';
+
+--Check uniqueness of username
+SELECT * FROM USERS
+WHERE USERNAME = 'amanuel2'
+--Then handle in java code
+
+--Get specific binary avatar
+SELECT AVATAR
+FROM USERS
+WHERE USERNAME='amanuel2'

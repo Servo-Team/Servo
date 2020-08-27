@@ -9,11 +9,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 public class Image {
 
     private Image(){};
+
 
     public static File convertUrlToFile(Context context, String urlStr) throws IOException{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -41,5 +43,19 @@ public class Image {
         fos.close();
 
         return f;
+    }
+
+
+    public static void copyInputStreamToFile(InputStream inputStream, File file) throws IOException {
+
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+            int read;
+            byte[] bytes = new byte[1024];
+
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
+
     }
 }
