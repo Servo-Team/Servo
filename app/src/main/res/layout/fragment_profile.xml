@@ -35,11 +35,22 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/acme"
         android:text="TextView"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/profileBorder"
         app:layout_constraintStart_toStartOf="@+id/profileBorder"
         app:layout_constraintTop_toBottomOf="@+id/profileBorder" />
+
+    <TextView
+        android:id="@+id/profilePageDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/profilePageUsername"
+        app:layout_constraintStart_toStartOf="@+id/profilePageUsername"
+        app:layout_constraintTop_toBottomOf="@+id/profilePageUsername" />
 
     <ListView
         android:id="@+id/profileListView"

@@ -1,0 +1,12 @@
+
+--Use inner join for crossing with the lookup table
+SELECT STATE_NAME
+FROM SERVICES
+INNER JOIN SERVICES_STATE_ID
+ON SERVICES.STATE_ID=SERVICES_STATE_ID.ID
+
+
+--Check if any related services
+SELECT *
+FROM SERVICES
+WHERE WORKER=13 OR ASSIGNER=13

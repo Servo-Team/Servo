@@ -6,15 +6,84 @@
     android:layout_height="match_parent"
     tools:context="com.servo.home.AddFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/noAddItemsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:alpha="0"
+        android:textColor="#D3D3D3"
+        android:fontFamily="@font/acme"
+        android:text="Seems empty here..."
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="57.5dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="173dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/service_card_template">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/acme"
+                        android:text="TextView"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/successAnimation"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="50dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="false"
+                        app:lottie_rawRes="@raw/success" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:fontFamily="@font/acme"
+                    android:text="TextView"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

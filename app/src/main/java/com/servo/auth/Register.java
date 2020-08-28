@@ -137,7 +137,7 @@ public class Register extends Fragment {
      * Give them default values
      * for each value except filled out
      * forms(u-name,pass,etc...)
-     * @TODO make all username's unique
+     * also checks all usernames are unique
      * @param view globalView
      * @return returns success if sucessfully
      *         registered failure otherwise

@@ -39,6 +39,10 @@ public final class Constants {
     public static final int SUCCESS = 100;
     public static final int ERROR   = 50;
 
+    public static final int SERVICE_NOT_ASSIGNED=1;
+    public static final int SERVICE_PENDING=2;
+    public static final int SERVICE_FINISHED=3;
+
     public static String[] profile_list_title = {
             "My Profile",
             "Messages",
@@ -71,6 +75,15 @@ public final class Constants {
             "https://i.imgur.com/yO7hepD.png",
             "https://i.imgur.com/bliEn4L.png",
             "https://i.imgur.com/U7ecrIL.png"
+    };
+
+    public static String[] chips_default_tags = {
+            "Coding",
+            "Outdoor",
+            "Music",
+            "Transportation",
+            "Food",
+            "Education"
     };
 
 }

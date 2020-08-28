@@ -4,7 +4,8 @@
     android:id="@+id/searchFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.servo.home.SearchFragment">
+    tools:context="com.servo.home.SearchFragment"
+    android:background="@drawable/home_page_bg">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

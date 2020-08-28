@@ -6,6 +6,8 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.servo.auth.R;
@@ -52,6 +54,7 @@ public class Dialog {
      * Starts a dialog which
      * inside contains that layout.
      * @param layout_id ID of the layout specified
+     * @text  either success text or error
      */
     private void startDialog(int layout_id, String text){
         AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
@@ -67,6 +70,7 @@ public class Dialog {
         builder.setCancelable(true);
 
         dialog = builder.create();
+
         dialog.show();
     }
 

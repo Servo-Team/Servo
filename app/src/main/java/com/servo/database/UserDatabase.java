@@ -64,24 +64,22 @@ public class UserDatabase extends Database{
 
         String insertQuery = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try{
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getEmail());
-            statement.setDate(4,   new java.sql.Date(user.getDOB().getTime()));
-            statement.setString(5, user.getPhone_NO());
-            statement.setBinaryStream(6, new FileInputStream(user.getAvatar()) , (int)user.getAvatar().length());
-            statement.setString(7, user.getDescription());
-            statement.setInt(8, user.getFollowing());
-            statement.setInt(9, user.getFollowers());
 
-            statement.execute();
-            connection.commit();
-        } catch(Exception err){
-            connection.close();
-            err.getStackTrace();
-        }
+        PreparedStatement statement = connection.prepareStatement(insertQuery);
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getEmail());
+        statement.setDate(4,   new java.sql.Date(user.getDOB().getTime()));
+        statement.setString(5, user.getPhone_NO());
+        statement.setBinaryStream(6, new FileInputStream(user.getAvatar()) , (int)user.getAvatar().length());
+        statement.setString(7, user.getDescription());
+        statement.setInt(8, user.getFollowing());
+        statement.setInt(9, user.getFollowers());
+
+        statement.execute();
+
+        connection.close();
+
     }
 
     /**
@@ -135,7 +133,7 @@ public class UserDatabase extends Database{
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE ID = %d;",ID));
 
-        while(rs.next()){
+        if(rs.next()){
             user.setUsername(rs.getString("USERNAME"));
             user.setPassword(rs.getString("PASSWORD"));
             user.setEmail(rs.getString("EMAIL"));
@@ -146,8 +144,6 @@ public class UserDatabase extends Database{
             user.setDescription(rs.getString("DESCR"));
             user.setFollowing(rs.getInt("FOLLOWING_NO"));
             user.setFollowers(rs.getInt("FOLLOWERS_NO"));
-
-            break;
         }
 
         connection.close();

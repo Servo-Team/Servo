@@ -24,6 +24,7 @@ import com.servo.adapter.ViewPagerAdapter;
 import com.servo.auth.R;
 import com.servo.database.User;
 import com.servo.database.UserDatabase;
+import com.servo.dialog.Dialog;
 import com.servo.utils.Constants;
 
 import java.util.ArrayList;
@@ -33,7 +34,9 @@ import static com.servo.utils.Permission.verifyStoragePermissions;
 
 public class HomeActivity extends AppCompatActivity {
 
-    protected User USER = new User();
+    public Dialog main_dialog;
+    public User USER = new User();
+    public int USER_ID;
     protected MenuItem currMenu;
 
     private AppBarConfiguration.Builder appbar;
@@ -43,14 +46,15 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
-        verifyStoragePermissions(this); 
-
+        verifyStoragePermissions(this);
+        main_dialog = new Dialog(this);
 
         Intent data = getIntent();
         Bundle bundle = data.getExtras();
         UserDatabase db = new UserDatabase();
         try {
-            USER = (User) db.getObj(bundle.getInt("USER_ID"));
+            USER_ID = bundle.getInt("USER_ID");
+            USER = (User) db.getObj(USER_ID);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addToastLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/add_dialog_bg">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:text="Add Product"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/serviceTitle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/input_add_toast"
+        android:drawableStart="@drawable/ic_label"
+        android:drawablePadding="5dp"
+        android:ems="10"
+        android:hint="Service Name"
+        android:inputType="textPersonName"
+        android:paddingHorizontal="10dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/serviceDescription"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/input_add_toast"
+        android:drawableStart="@drawable/ic_description"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Description..."
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/serviceTitle" />
+
+    <TextView
+        android:id="@+id/textSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:text="Select Tags: "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/serviceDescription"
+        app:layout_constraintTop_toTopOf="@+id/tagChips" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tagChips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:theme="@style/ChipGroupTheme"
+        app:layout_constraintStart_toEndOf="@id/textSelect"
+        app:layout_constraintTop_toBottomOf="@+id/serviceDescription">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:text="Coding"
+                    />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:text="Outdoor"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:text="Music"
+                    />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:text="Transportation"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:text="Food"
+                    />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:text="Education"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/submitProductButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_round"
+        android:fontFamily="@font/acme"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagChips" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

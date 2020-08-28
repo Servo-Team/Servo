@@ -46,6 +46,7 @@ public class ProfileFragment extends Fragment {
 
         assert act!=null;
         ((TextView) globalView.findViewById(R.id.profilePageUsername)).setText(((HomeActivity)act).USER.getUsername());
+        ((TextView) globalView.findViewById(R.id.profilePageDesc)).setText(((HomeActivity)act).USER.getDescription());
 
         UserDatabase db = new UserDatabase();
         File img = null;

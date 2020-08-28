@@ -7,5 +7,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Chip Group theme. -->
+    <style name="ChipGroupTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="chipBackgroundColor">@color/chip_bg</item>
+    </style>
+
+    <style name="RoundedCornersDialog" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">16dp</item>
+    </style>
 
 </resources>
