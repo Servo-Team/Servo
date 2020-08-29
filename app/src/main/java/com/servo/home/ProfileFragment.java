@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -35,13 +37,15 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
     private View globalView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         globalView =  inflater.inflate(R.layout.fragment_profile, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         Activity act = getActivity();
 
         assert act!=null;

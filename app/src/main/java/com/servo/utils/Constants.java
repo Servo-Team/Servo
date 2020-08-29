@@ -39,9 +39,14 @@ public final class Constants {
     public static final int SUCCESS = 100;
     public static final int ERROR   = 50;
 
+    public static final int AUTH_REGULAR     = 10;
+    public static final int AUTH_VIA_SERVICE = 20;
+    public static final int RC_SIGN_IN = 1;
+
     public static final int SERVICE_NOT_ASSIGNED=1;
     public static final int SERVICE_PENDING=2;
     public static final int SERVICE_FINISHED=3;
+
 
     public static String[] profile_list_title = {
             "My Profile",

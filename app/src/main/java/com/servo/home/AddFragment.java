@@ -3,7 +3,9 @@ package com.servo.home;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +43,7 @@ public class AddFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         globalView =  inflater.inflate(R.layout.fragment_add, container, false);
+
 
         FloatingActionButton fab = (FloatingActionButton) globalView.findViewById(R.id.fabAddProduct);
 

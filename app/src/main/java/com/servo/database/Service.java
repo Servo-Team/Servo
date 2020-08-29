@@ -19,6 +19,7 @@ public class Service {
      * All properties
      * in a service
      */
+    private int ID;
     private String title;
     private String description;
     private String tags;
@@ -28,13 +29,23 @@ public class Service {
 
     public Service(){};
 
-    public Service(String title, String description, String tags, int assignerID, int workerID, int stateid) {
+
+    public Service(String title, String description, String tags, int assignerID, int workerID, int stateid, int ID) {
         this.title = title;
         this.description = description;
         this.tags = tags;
         AssignerID = assignerID;
         this.workerID = workerID;
         this.stateID = stateid;
+        this.ID = ID;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getTitle() {

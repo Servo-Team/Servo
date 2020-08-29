@@ -2,10 +2,11 @@ package com.servo.auth;
 
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -13,8 +14,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.os.StrictMode;
-import android.service.autofill.UserData;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,7 +24,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.servo.database.Database;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.servo.database.User;
 import com.servo.database.UserDatabase;
 import com.servo.utils.Constants;
@@ -33,16 +38,13 @@ import com.servo.utils.Hash;
 import com.servo.utils.Image;
 import com.servo.utils.RandomChooser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -61,6 +63,9 @@ public class Register extends Fragment {
 
     private View globalView;
     private      List<EditText> texts = new ArrayList();
+    private int google_sign_in_status = Constants.SUCCESS;
+    private Activity act;
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -77,7 +82,7 @@ public class Register extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final Activity act = getActivity();
+        act = getActivity();
         // Inflate the layout for this fragment
         globalView =  inflater.inflate(R.layout.fragment_register, container, false);
 
@@ -126,6 +131,15 @@ public class Register extends Fragment {
 
             }
         });
+
+        FloatingActionButton google_fab = (FloatingActionButton) globalView.findViewById(R.id.googleButton);
+        google_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register_google();
+            }
+        });
+
         disableRegister();
 
         return globalView;
@@ -186,6 +200,93 @@ public class Register extends Fragment {
         }
 
         return Constants.SUCCESS;
+    }
+
+    private void register_google(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == Constants.RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                handleRegister(task);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void handleRegister(Task<GoogleSignInAccount> completedTask) throws Exception {
+        try {
+            UserDatabase db = new UserDatabase();
+            GoogleSignInAccount acct = completedTask.getResult(ApiException.class);
+
+            Uri personPhoto = acct.getPhotoUrl();
+            User user = new User();
+            user.setUsername(acct.getDisplayName());
+            user.setPassword(acct.getId());
+            user.setEmail(acct.getEmail());
+            user.setPhone_NO("9999999999");
+            user.setDOB(new Date());
+            user.setFollowers(0);
+            user.setFollowing(0);
+            user.setDescription(String.format("Its empty here... %s has not set his/her description.", user.getUsername()));
+            File f = Image.convertUrlToFile(getContext(), personPhoto.toString());
+            user.setAvatar(f);
+
+
+            try{
+                if(db.isUsernameUnique(user.getUsername()) == Constants.ERROR){
+                    google_sign_in_status = Constants.ERROR;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if(google_sign_in_status == Constants.SUCCESS) db.insertObj(user);
+
+            Handler handler = new Handler(Looper.getMainLooper());
+            assert act != null;
+
+            if(google_sign_in_status == Constants.SUCCESS) {
+                ((MainActivity) act).main_dialog.startSuccessDialog("Successfully Registered User!");
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MainActivity)act).main_dialog.dismissDialog();
+                        navToLogin();
+                    }
+                }, 2500);
+            } else{
+                ((MainActivity) act).main_dialog.startErrorDialog("Google duplicate usernames!");
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MainActivity)act).main_dialog.dismissDialog();
+                    }
+                }, 5000);
+            }
+
+
+            System.out.println(google_sign_in_status);
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("SERVO", "signInResult:failed code=" + e.getStatusCode());
+        }
     }
 
     /**

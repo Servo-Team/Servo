@@ -112,6 +112,7 @@ public class ServiceDatabase extends Database {
 
     private Service inner_service(ResultSet rs) throws SQLException {
         Service service = new Service();
+        service.setID(rs.getInt("ID"));
         service.setTitle(rs.getString("TITLE"));
         service.setDescription(rs.getString("DESCR"));
         service.setAssignerID(rs.getInt("ASSIGNER"));

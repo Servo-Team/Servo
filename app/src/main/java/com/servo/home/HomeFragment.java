@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +29,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         globalView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         Activity act = getActivity();
         User user = ((HomeActivity)act).USER;
