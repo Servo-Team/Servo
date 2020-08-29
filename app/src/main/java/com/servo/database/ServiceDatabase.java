@@ -85,10 +85,13 @@ public class ServiceDatabase extends Database {
         return service;
     }
 
-    /*
-    SELECT *
-FROM SERVICES
-WHERE WORKER=13 OR ASSIGNER=13
+
+    /**
+     * Gives services related to
+     * the user
+     * @param ID ID Of user
+     * @return all services related
+     * @throws Exception
      */
     public List<Object> servicesRelated(int ID) throws Exception{
         List<Object> services = new ArrayList();

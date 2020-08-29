@@ -170,7 +170,7 @@ public class Register extends Fragment {
             e.printStackTrace();
         }
 
-        user.setDescription("Its empty here...");
+        user.setDescription(String.format("Its empty here... %s has not set his/her description.", user.getUsername()));
         user.setFollowing(0);
         user.setFollowers(0);
 

@@ -8,7 +8,7 @@
     </style>
 
     <!-- Chip Group theme. -->
-    <style name="ChipGroupTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="ChipGroupTheme" parent="Theme.MaterialComponents">
         <item name="chipBackgroundColor">@color/chip_bg</item>
     </style>
 

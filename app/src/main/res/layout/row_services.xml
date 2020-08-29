@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:id="@+id/cardView"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:cardUseCompatPadding="true"
+app:cardElevation="8dp"
+app:cardCornerRadius="5dp"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="173dp"
+        android:background="@drawable/service_card_template">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/pendingAnimation"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/pending" />
+
+        <TextView
+            android:id="@+id/serviceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/acme"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+
+        <TextView
+            android:id="@+id/serviceDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/serviceTitle"
+            android:layout_alignStart="@+id/serviceTitle"
+            android:fontFamily="@font/acme"
+            android:text="This is my description"
+            android:textColor="@color/white" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupServices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/serviceDesc"
+            android:layout_alignStart="@+id/serviceTitle"
+            >
+        </com.google.android.material.chip.ChipGroup>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
