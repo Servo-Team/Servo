@@ -19,11 +19,13 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.servo.adapter.SearchUserAdapter;
 import com.servo.auth.R;
 import com.servo.database.Database;
 import com.servo.database.Service;
 import com.servo.database.ServiceDatabase;
 import com.servo.dialog.SearchDialog;
+import com.servo.dialog.SearchProfileDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +36,7 @@ public class SearchFragment extends BaseFragment {
     private View globalView;
     private SearchView search;
     private ListView listView;
+    private ListView userListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +46,7 @@ public class SearchFragment extends BaseFragment {
 
         search = (SearchView) globalView.findViewById(R.id.searchViewButton);
         listView = (ListView) globalView.findViewById(R.id.searchListView);
+        userListView = (ListView) globalView.findViewById(R.id.searchUsersListView);
 
         List<String> arr = null;
         try {
@@ -63,6 +67,18 @@ public class SearchFragment extends BaseFragment {
                 String val =  listView.getAdapter().getItem(i).toString();
                 SearchDialog dialog = new SearchDialog(getActivity());
                 dialog.startDialog(val);
+            }
+        });
+
+
+
+        final SearchUserAdapter userAdap = new SearchUserAdapter(getActivity());
+        userListView.setAdapter(userAdap);
+        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                SearchProfileDialog dialog = new SearchProfileDialog(getActivity(), userListView.getAdapter().getItem(i).toString());
+                dialog.startDialog();
             }
         });
 

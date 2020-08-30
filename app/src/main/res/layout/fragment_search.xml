@@ -33,6 +33,14 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <ListView
+        android:id="@+id/searchUsersListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
 
     <ListView
         android:id="@+id/searchListView"
@@ -40,6 +48,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/searchUsersListView" >
+
+    </ListView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

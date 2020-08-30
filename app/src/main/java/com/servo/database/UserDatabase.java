@@ -106,7 +106,6 @@ public class UserDatabase extends Database{
             user.setDOB(rs.getDate("DOB"));
             user.setPhone_NO(rs.getString("PHONE_NO"));
 
-
             user.setDescription(rs.getString("DESCR"));
             user.setFollowing(rs.getInt("FOLLOWING_NO"));
             user.setFollowers(rs.getInt("FOLLOWERS_NO"));
@@ -252,6 +251,33 @@ public class UserDatabase extends Database{
         }
 
         return f;
+    }
+    public List<Object> getObjsWithAvatar(Activity act) throws Exception {
+
+        List<Object> users = new ArrayList();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+
+        ResultSet rs = statement.executeQuery("SELECT * FROM USERS");
+
+        while(rs.next()){
+            User user = new User();
+            user.setUsername(rs.getString("USERNAME"));
+            user.setPassword(rs.getString("PASSWORD"));
+            user.setEmail(rs.getString("EMAIL"));
+            user.setDOB(rs.getDate("DOB"));
+            user.setPhone_NO(rs.getString("PHONE_NO"));
+            user.setAvatar(getAvatar(user.getUsername(), act));
+            user.setDescription(rs.getString("DESCR"));
+            user.setFollowing(rs.getInt("FOLLOWING_NO"));
+            user.setFollowers(rs.getInt("FOLLOWERS_NO"));
+
+            users.add(user);
+        }
+
+        connection.close();
+        return users;
     }
 
 
