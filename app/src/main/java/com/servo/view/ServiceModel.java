@@ -2,8 +2,26 @@ package com.servo.view;
 
 public class ServiceModel {
 
+    private int serviceID;
     private String title, desc;
     private String[] chipText;
+    private boolean isFinished;
+
+    public int getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(int serviceID) {
+        this.serviceID = serviceID;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
 
     public String[] getChipText() {
         return chipText;

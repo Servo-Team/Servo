@@ -44,7 +44,7 @@ public class ProfileFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         globalView =  inflater.inflate(R.layout.fragment_profile, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
 
         Activity act = getActivity();
 

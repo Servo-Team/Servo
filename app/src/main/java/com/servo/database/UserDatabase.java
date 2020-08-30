@@ -119,6 +119,23 @@ public class UserDatabase extends Database{
     }
 
     /**
+     * Updates the targeted
+     * object given from
+     * the ID
+     *
+     * @param ID ID of object
+     * @return the newly updated object
+     * @throws Exception
+     * @deprecated NOT IMPLEMENTED
+     */
+
+    @Deprecated
+    @Override
+    public Object updateObj(int ID) throws Exception {
+        return null;
+    }
+
+    /**
      * Gets the specific user with the
      * specified ID
      * @param ID the ID of the user

@@ -21,7 +21,6 @@ public class MessageFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         globalView =  inflater.inflate(R.layout.fragment_message, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
 
         return globalView;

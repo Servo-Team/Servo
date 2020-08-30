@@ -13,8 +13,8 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentActivity fragAct = requireActivity();
-        androidx.appcompat.app.ActionBar actBar = ((AppCompatActivity)fragAct).getSupportActionBar();
-        actBar.show();
+//        FragmentActivity fragAct = requireActivity();
+//        androidx.appcompat.app.ActionBar actBar = ((AppCompatActivity)fragAct).getSupportActionBar();
+//        actBar.show();
     }
 }

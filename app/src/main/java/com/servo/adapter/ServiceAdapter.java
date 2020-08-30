@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.servo.auth.R;
+import com.servo.database.Service;
+import com.servo.database.ServiceDatabase;
+import com.servo.utils.Constants;
 import com.servo.view.ServiceHolder;
 import com.servo.view.ServiceModel;
 
@@ -82,9 +86,35 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceHolder> {
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull ServiceHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ServiceHolder holder, final int position) {
         holder.hTitle.setText(servicesAdded.get(position).getTitle());
         holder.hDesc.setText(servicesAdded.get(position).getDesc());
+
+
+        if(servicesAdded.get(position).isFinished()){
+            holder.toggle.toggle();
+            holder.anim.setAnimation(R.raw.done_blue);
+        }
+
+        final ServiceHolder fHolder = holder;
+        holder.toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    ServiceDatabase db = new ServiceDatabase();
+                    if (fHolder.toggle.isChecked()) {
+                        db.setFinishedOrUnfinished(servicesAdded.get(position).getServiceID(), Constants.SERVICE_FINISHED);
+                        Toast.makeText(act, "FINISHED!", Toast.LENGTH_LONG).show();
+                    } else {
+                        db.setFinishedOrUnfinished(servicesAdded.get(position).getServiceID(), Constants.SERVICE_PENDING);
+                        Toast.makeText(act, "UNFINISHED!", Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    System.err.println("ERROR ONBINDVIEWHOLDER SERVICE ADAPTER");
+                }
+            }
+        });
 
         for(int i=0; i<servicesAdded.get(position).getChipText().length; i++){
             Chip chip = (Chip) act.getLayoutInflater().inflate(R.layout.servicechip, null, false);

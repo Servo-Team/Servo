@@ -35,4 +35,13 @@ public final class StringManupilation {
         System.arraycopy(list, 0, finalized, 0, num_tags);
         return finalized;
     }
+
+    public static int getIDFromList(String s){
+        String str = null;
+        for(int i=0; s.charAt(i)!=' ' ; i++){
+            str+=s.charAt(i);
+        }
+        return (Integer.parseInt(str.substring(4)));
+    }
+
 }

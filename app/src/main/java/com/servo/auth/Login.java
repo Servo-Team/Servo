@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -255,6 +256,7 @@ public class Login extends Fragment {
 
 
     private void custom_facebook(){
+        Toast.makeText(getActivity(), "Facebook Login Not Implemented Yet", Toast.LENGTH_LONG);
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override

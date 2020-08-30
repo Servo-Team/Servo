@@ -13,14 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.servo.auth.R;
 import com.servo.database.Database;
 import com.servo.database.Service;
 import com.servo.database.ServiceDatabase;
+import com.servo.dialog.SearchDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +57,15 @@ public class SearchFragment extends BaseFragment {
         );
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String val =  listView.getAdapter().getItem(i).toString();
+                SearchDialog dialog = new SearchDialog(getActivity());
+                dialog.startDialog(val);
+            }
+        });
+
         final List<String> finalArr = arr;
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

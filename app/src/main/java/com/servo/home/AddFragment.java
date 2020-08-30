@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.servo.adapter.ServiceAdapter;
@@ -37,6 +38,8 @@ public class AddFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ServiceAdapter adapter;
+
+    private ToggleButton toggle;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -71,7 +74,6 @@ public class AddFragment extends Fragment {
         }
 
 
-
         return globalView;
     }
 
@@ -80,7 +82,7 @@ public class AddFragment extends Fragment {
         dialog.startDialog();
     }
 
-    private List<ServiceModel> getServices(){
+    private List<ServiceModel> getServices() throws Exception {
         List<ServiceModel> model = new ArrayList();
 
         for(int i=0; i<services.size(); i++){
@@ -90,6 +92,8 @@ public class AddFragment extends Fragment {
             service_inst.setTitle(service_main.getTitle());
             service_inst.setDesc(service_main.getDescription());
             service_inst.setChipText(StringManupilation.explode_chips(service_main.getTags()));
+            service_inst.setServiceID(service_main.getID());
+            service_inst.setFinished(new ServiceDatabase().isFinished(service_main.getID()));
 
             model.add(service_inst);
         }

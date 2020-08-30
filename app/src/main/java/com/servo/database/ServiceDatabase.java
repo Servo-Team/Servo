@@ -1,6 +1,8 @@
 package com.servo.database;
 
 
+import com.servo.utils.Constants;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,6 +62,75 @@ public class ServiceDatabase extends Database {
     }
 
     /**
+     * Updates the targeted
+     * object given from
+     * the ID
+     *
+     * @param ID ID of object
+     * @return the newly updated object
+     * @throws Exception
+     * @deprecated USE updateObj(ID,WorkerID)
+     */
+    @Deprecated
+    @Override
+    public Object updateObj(int ID) throws Exception {
+        throw new UnsupportedOperationException("USE updateObj(ID,WorkerID)");
+    }
+
+    /**
+     * Updates the targeted
+     * object given from
+     * the ID and the WorkerID
+     * who will work on the service
+     * @param ID ID of object
+     * @throws Exception
+     */
+    public void updateObj(int ID, int WorkerID) throws Exception {
+        Service service = new Service();
+        Connection connection = connect();
+
+
+        PreparedStatement statement = connection.prepareStatement("UPDATE SERVICES SET WORKER = ?, STATE_ID = 2 WHERE ID = ?");
+        statement.setInt(1, WorkerID);
+        statement.setInt(2,ID);
+        statement.execute();
+        connection.close();
+
+    }
+
+    public boolean isFinished(int ID) throws Exception{
+        Service service = new Service();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+
+        ResultSet rs = statement.executeQuery(String.format("SELECT STATE_ID FROM SERVICES WHERE ID = %d;",ID));
+
+        if(rs.next()){
+            return (rs.getInt("STATE_ID") == Constants.SERVICE_FINISHED);
+        }
+        return false;
+    }
+
+    public void setFinishedOrUnfinished(int ID, int status) throws Exception{
+        Service service = new Service();
+        Connection connection = connect();
+
+        PreparedStatement statement = connection.prepareStatement("UPDATE SERVICES SET STATE_ID = ? WHERE ID = ?");
+        statement.setInt(2, ID);
+
+
+        if(status == Constants.SERVICE_FINISHED){
+            statement.setInt(1,Constants.SERVICE_FINISHED);
+        } else{
+            statement.setInt(1,Constants.SERVICE_PENDING);
+        }
+
+        statement.execute();
+        connection.close();
+    }
+
+    /**
      * Gets the specific record
      * with that ID which is
      * unique
@@ -108,6 +179,9 @@ public class ServiceDatabase extends Database {
         connection.close();
         return services;
     }
+
+
+
 
 
     private Service inner_service(ResultSet rs) throws SQLException {

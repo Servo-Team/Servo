@@ -39,14 +39,6 @@ public abstract class Database {
     public abstract void insertObj(Object obj) throws Exception;
 
     /**
-     * Gets all the records
-     * off the specified database
-     * @return returns all records
-     * @throws Exception
-     */
-    public abstract List<Object> getObjs() throws Exception;
-
-    /**
      * Gets the specific record
      * with that ID which is
      * unique
@@ -55,6 +47,25 @@ public abstract class Database {
      * @throws Exception
      */
     public abstract Object getObj(int ID) throws Exception;
+
+    /**
+     * Gets all the records
+     * off the specified database
+     * @return returns all records
+     * @throws Exception
+     */
+    public abstract List<Object> getObjs() throws Exception;
+
+
+    /**
+     * Updates the targeted
+     * object given from
+     * the ID
+     * @param ID ID of object
+     * @return the newly updated object
+     * @throws Exception
+     */
+    public abstract Object updateObj(int ID) throws Exception;
 
     /**
      * General connection method

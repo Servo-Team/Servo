@@ -53,7 +53,22 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_below="@id/serviceDesc"
             android:layout_alignStart="@+id/serviceTitle"
             >
+
         </com.google.android.material.chip.ChipGroup>
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/serviceDesc"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/togglefinish"
+            android:fontFamily="@font/acme"
+            android:text="ToggleButton"
+            android:textColor="@color/white"
+            android:textOff="FINISHED"
+            android:textOn="NOT FINISHED"
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
