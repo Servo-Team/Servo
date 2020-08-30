@@ -24,6 +24,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.internal.ImageRequest;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,11 +51,20 @@ import com.servo.utils.RandomChooser;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import java.util.List;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * <h1>Register Servo</h1>
@@ -62,9 +81,11 @@ import java.util.List;
 public class Register extends Fragment {
 
     private View globalView;
-    private      List<EditText> texts = new ArrayList();
-    private int google_sign_in_status = Constants.SUCCESS;
+    private      List<EditText> texts   = new ArrayList();
+    private int google_sign_in_status   = Constants.SUCCESS;
+    private int facebook_sign_in_status = Constants.SUCCESS;
     private Activity act;
+    private CallbackManager callbackManager;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -132,6 +153,7 @@ public class Register extends Fragment {
             }
         });
 
+
         FloatingActionButton google_fab = (FloatingActionButton) globalView.findViewById(R.id.googleButton);
         google_fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +161,17 @@ public class Register extends Fragment {
                 register_google();
             }
         });
+
+        callbackManager = CallbackManager.Factory.create();
+
+        FloatingActionButton facebook_fab = (FloatingActionButton) globalView.findViewById(R.id.facebookButton);
+        facebook_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                custom_facebook();
+            }
+        });
+
 
         disableRegister();
 
@@ -212,9 +245,115 @@ public class Register extends Fragment {
         startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
     }
 
+    private void custom_facebook(){
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("user_photos", "email", "public_profile", "user_posts", "user_videos", "user_birthday", "public_profile"));
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+
+                                        // Application code
+                                        try {
+
+                                            String id = object.getString("id");
+                                            String first_name = object.getString("first_name");
+                                            String last_name = object.getString("last_name");
+                                            String birthday = object.getString("birthday");
+                                            String image_url = "http://graph.facebook.com/" + id + "/picture?type=large";
+                                            String email = "N/A";
+                                            if (object.has("email")) {
+                                                email = object.getString("email");
+                                            }
+
+                                            User user = new User();
+                                            user.setUsername(first_name + " " + last_name);
+                                            user.setPassword(id);
+                                            user.setEmail(email);
+                                            user.setPhone_NO("9999999999");
+                                            user.setDOB(new Date(birthday));
+                                            user.setFollowers(0);
+                                            user.setFollowing(0);
+                                            user.setDescription(String.format("Its empty here... %s has not set his/her description.", user.getUsername()));
+
+                                            Uri profilePictureUri = ImageRequest.getProfilePictureUri(Profile.getCurrentProfile().getId(), 512 , 512 );
+                                            String urlPfp = profilePictureUri.toString();
+                                            File f = Image.convertUrlToFile(getContext(), urlPfp);
+                                            user.setAvatar(f);
+
+                                            UserDatabase db = new UserDatabase();
+                                            try{
+                                                if(db.isUsernameUnique(user.getUsername()) == Constants.ERROR){
+                                                    facebook_sign_in_status = Constants.ERROR;
+                                                }
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                            if(facebook_sign_in_status == Constants.SUCCESS) db.insertObj(user);
+
+                                            Handler handler = new Handler(Looper.getMainLooper());
+                                            assert act != null;
+
+                                            if(facebook_sign_in_status == Constants.SUCCESS) {
+                                                ((MainActivity) act).main_dialog.startSuccessDialog("Successfully Registered User!");
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ((MainActivity)act).main_dialog.dismissDialog();
+                                                        navToLogin();
+                                                    }
+                                                }, 2500);
+                                            } else{
+                                                ((MainActivity) act).main_dialog.startErrorDialog("Facebook duplicate usernames!");
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ((MainActivity)act).main_dialog.dismissDialog();
+                                                    }
+                                                }, 5000);
+                                            }
+
+
+                                        } catch (JSONException | IOException e) {
+                                            e.printStackTrace();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,first_name,last_name,email,gender,birthday"); // id,first_name,last_name,email,gender,birthday,cover,picture.type(large)
+                        request.setParameters(parameters);
+                        request.executeAsync();
+                    }
+
+                    @Override
+                    public void onCancel(){
+                        System.out.println("CANCEL");
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception){
+                        System.out.println("ERROR");
+                        // App code
+                    }
+                });
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == Constants.RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
@@ -279,8 +418,6 @@ public class Register extends Fragment {
                 }, 5000);
             }
 
-
-            System.out.println(google_sign_in_status);
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

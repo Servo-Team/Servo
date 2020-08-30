@@ -20,6 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.internal.ImageRequest;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,9 +34,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.servo.database.User;
 import com.servo.database.UserDatabase;
 import com.servo.utils.Constants;
 import com.servo.utils.Hash;
+import com.servo.utils.Image;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
 
 
 /**
@@ -49,6 +66,7 @@ public class Login extends Fragment {
     private View globalView;
     private View dialogView;
     private Activity act;
+    private CallbackManager callbackManager;
 
 
     @Override
@@ -81,6 +99,20 @@ public class Login extends Fragment {
             @Override
             public void onClick(View view) {
                 login_google();
+            }
+        });
+
+
+        /**
+         * @TODO FINISH FACEBOOK LOGIN
+         */
+        callbackManager = CallbackManager.Factory.create();
+
+        FloatingActionButton facebook_fab = (FloatingActionButton) globalView.findViewById(R.id.facebookButtonLogin);
+        facebook_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                custom_facebook();
             }
         });
 
@@ -157,8 +189,8 @@ public class Login extends Fragment {
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
-
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -219,6 +251,36 @@ public class Login extends Fragment {
             Log.w("SERVO", "signInResult:failed code=" + e.getStatusCode());
         }
     }
+
+
+
+    private void custom_facebook(){
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        System.out.println("SUCCESS");
+                       // Log.i("FACEBOOK", loginResult.getAccessToken().getUserId());
+
+                    }
+
+                    @Override
+                    public void onCancel(){
+                        System.out.println("CANCEL");
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception){
+                        System.out.println("ERROR");
+                        // App code
+                    }
+                });
+
+    }
+
+
 
     /**
      * Simply navigates to

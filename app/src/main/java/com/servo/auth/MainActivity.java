@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.servo.dialog.Dialog;
 import com.servo.home.HomeActivity;
 
@@ -48,6 +50,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         main_dialog = new Dialog(this);
-
+//        AppEventsLogger.activateApp(getApplication());
     }
 }
