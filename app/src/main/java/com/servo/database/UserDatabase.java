@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.servo.utils.Constants;
 import com.servo.utils.Permission;
+import com.servo.utils.StringManupilation;
 
 import org.apache.commons.io.FileUtils;
 
@@ -62,7 +63,7 @@ public class UserDatabase extends Database{
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         simpleDateFormat.format(user.getDOB(), dateFormatted, new FieldPosition(0));
 
-        String insertQuery = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
         PreparedStatement statement = connection.prepareStatement(insertQuery);
@@ -75,6 +76,7 @@ public class UserDatabase extends Database{
         statement.setString(7, user.getDescription());
         statement.setInt(8, user.getFollowing());
         statement.setInt(9, user.getFollowers());
+        statement.setString(10, "");
 
         statement.execute();
 
@@ -157,6 +159,29 @@ public class UserDatabase extends Database{
             user.setPhone_NO(rs.getString("PHONE_NO"));
 
 
+            user.setDescription(rs.getString("DESCR"));
+            user.setFollowing(rs.getInt("FOLLOWING_NO"));
+            user.setFollowers(rs.getInt("FOLLOWERS_NO"));
+        }
+
+        connection.close();
+        return user;
+    }
+
+    public Object getObjViaUsername(Activity act, String username) throws Exception{
+        User user = new User();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(String.format("SELECT * FROM USERS WHERE USERNAME = '%s';",username));
+
+        if(rs.next()){
+            user.setUsername(rs.getString("USERNAME"));
+            user.setPassword(rs.getString("PASSWORD"));
+            user.setEmail(rs.getString("EMAIL"));
+            user.setDOB(rs.getDate("DOB"));
+            user.setPhone_NO(rs.getString("PHONE_NO"));
+            user.setAvatar(getAvatar(username, act));
             user.setDescription(rs.getString("DESCR"));
             user.setFollowing(rs.getInt("FOLLOWING_NO"));
             user.setFollowers(rs.getInt("FOLLOWERS_NO"));
@@ -252,6 +277,87 @@ public class UserDatabase extends Database{
 
         return f;
     }
+
+    public void addFollower(String followerUsername, String masterUsername) throws Exception{
+        Connection connection = connect();
+
+        String followerQuery  = "UPDATE USERS SET FOLLOWERS_NO = FOLLOWERS_NO + 1 WHERE USERNAME = ?";
+        String followingQuery = "UPDATE USERS SET FOLLOWING_NO = FOLLOWING_NO + 1 WHERE USERNAME = ?";
+
+        String followersNamesQuery = "UPDATE USERS SET FOLLOWERS_NAMES = CONCAT(FOLLOWERS_NAMES, ?) WHERE USERNAME = ?";
+
+        PreparedStatement statement = connection.prepareStatement(followerQuery);
+        PreparedStatement statement2= connection.prepareStatement(followingQuery);
+        PreparedStatement statement3= connection.prepareStatement(followersNamesQuery);
+
+        statement.setString(1, masterUsername);
+        statement.execute();
+
+        statement2.setString(1, followerUsername);
+        statement2.execute();
+
+        statement3.setString(1, (String.format(",%s",followerUsername)));
+        statement3.setString(2, masterUsername);
+        statement3.execute();
+
+        connection.close();
+    }
+
+    public void removeFollower(String followerUsername, String masterUsername) throws Exception{
+        Connection connection = connect();
+
+        String followerQuery  = "UPDATE USERS SET FOLLOWERS_NO = FOLLOWERS_NO - 1 WHERE USERNAME = ?";
+        String followingQuery = "UPDATE USERS SET FOLLOWING_NO = FOLLOWING_NO - 1 WHERE USERNAME = ?";
+        String finalQuery     = "UPDATE USERS SET FOLLOWERS_NAMES = ? WHERE USERNAME = ?";
+
+        PreparedStatement statement = connection.prepareStatement(followerQuery);
+        PreparedStatement statement2= connection.prepareStatement(followingQuery);
+        PreparedStatement statement3= connection.prepareStatement(finalQuery);
+
+        statement.setString(1, masterUsername);
+        statement.execute();
+
+        statement2.setString(1, followerUsername);
+        statement2.execute();
+
+        Statement statement4 = connection.createStatement();
+        ResultSet rs = statement4.executeQuery(String.format("SELECT FOLLOWERS_NAMES FROM USERS WHERE USERNAME='%s'", masterUsername));
+
+        String other = null;
+        while(rs.next()){
+            other = rs.getString("FOLLOWERS_NAMES");
+        }
+
+        List<String> allFollowers = StringManupilation.getListNamesFromCompat(other);
+        allFollowers.remove(followerUsername);
+
+        String finalRet = StringManupilation.getCompatFromListNames(allFollowers);
+        statement3.setString(1, finalRet);
+        statement3.setString(2, masterUsername);
+        statement3.execute();
+
+        connection.close();
+    }
+
+    public boolean isFollowed(String followerUsername, String masterUsername) throws Exception{
+        User user = new User();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(String.format("SELECT FOLLOWERS_NAMES FROM USERS WHERE USERNAME='%s'", masterUsername));
+
+        String other = null;
+        while(rs.next()){
+            other = rs.getString("FOLLOWERS_NAMES");
+        }
+
+        List<String> allFollowers = StringManupilation.getListNamesFromCompat(other);
+
+        return allFollowers.contains(followerUsername);
+    }
+
+
+
     public List<Object> getObjsWithAvatar(Activity act) throws Exception {
 
         List<Object> users = new ArrayList();

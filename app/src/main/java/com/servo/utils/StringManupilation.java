@@ -44,4 +44,27 @@ public final class StringManupilation {
         return (Integer.parseInt(str.substring(4)));
     }
 
+    public static List<String> getListNamesFromCompat(String str){
+        int last = str.length()-1;
+        List<String> ret = new ArrayList();
+        for(int i=last; i>0; i--){
+            StringBuilder s = new StringBuilder("");
+            while(str.charAt(i)!=','){
+                s.append(str.charAt(i));
+                i--;
+            }
+            ret.add(new String(s.reverse()));
+        }
+        return ret;
+    }
+
+    public static String getCompatFromListNames(List<String> str){
+        String s = new String("");
+        for(int i=0; i<str.size(); i++){
+            s+=",";
+            s+=str.get(i);
+        }
+        return s;
+    }
+
 }

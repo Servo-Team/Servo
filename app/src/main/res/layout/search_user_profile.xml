@@ -4,16 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E66E6E">
+    android:background="@drawable/profile_dialog">
 
-    <TextView
-        android:id="@+id/textView4"
+    <ImageView
+        android:id="@+id/searchUserProfileAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the Users Profile"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintEnd_toEndOf="@+id/searchUserProfileUsername"
+        app:layout_constraintStart_toStartOf="@+id/searchUserProfileUsername"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/searchUserProfileRectangle"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/profile_dialog_middle_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/searchUserProfileUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/acme"
+        android:text="John Doe"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintStart_toStartOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintTop_toTopOf="@+id/searchUserProfileRectangle" />
+
+    <TextView
+        android:id="@+id/searchUserProfileDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/acme"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintStart_toStartOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintTop_toBottomOf="@+id/searchUserProfileUsername" />
+
+
+    <ToggleButton
+        android:id="@+id/searchUserProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#F8F5A8"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="5"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:text="ToggleButton"
+        android:textColor="@color/colorPrimaryBright"
+        android:textOff="FOLLOW"
+        android:textOn="UNFOLLOW"
+        app:layout_constraintEnd_toEndOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintStart_toStartOf="@+id/searchUserProfileRectangle"
+        app:layout_constraintTop_toBottomOf="@+id/searchUserProfileDesc" />
+
+    <TextView
+        android:id="@+id/searchUserProfileFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/acme"
+        android:text="Followers"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/searchUserProfileButton"
+        app:layout_constraintTop_toBottomOf="@+id/searchUserProfileButton" />
+
+    <TextView
+        android:id="@+id/searchUserProfileFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/acme"
+        android:text="Following"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/searchUserProfileButton"
+        app:layout_constraintTop_toBottomOf="@+id/searchUserProfileButton" />
+
+    <TextView
+        android:id="@+id/searchUserProfileFollowersNumber"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:fontFamily="@font/acme"
+    android:text="TextView"
+    android:textColor="#FF9800"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="@+id/searchUserProfileFollowers"
+    app:layout_constraintStart_toStartOf="@+id/searchUserProfileFollowers"
+    app:layout_constraintTop_toBottomOf="@+id/searchUserProfileFollowers" />
+
+    <TextView
+        android:id="@+id/searchUserProfileFollowingNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/acme"
+        android:text="TextView"
+        android:textColor="#FF9800"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/searchUserProfileFollowing"
+        app:layout_constraintStart_toStartOf="@+id/searchUserProfileFollowing"
+        app:layout_constraintTop_toBottomOf="@+id/searchUserProfileFollowing" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
