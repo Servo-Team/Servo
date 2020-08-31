@@ -27,12 +27,68 @@ to paying ur neighbor to maw your lawn :)
   </tr>
 </table>
 
+# Installation
+
+In order to run this application in your enviorement go ahead and install android studio from <b><a href="https://developer.android.com">here</a></b> first. Then after you install just import the
+project and all the gradle dependancies should automatically sync!
+
+## Dependancies
+
+The external dependancies that are used to run this project currently include
+
+    - Android X libraries 
+        - Default libraries are needed
+        - Navigation UI for navigation
+        - ViewPager 2 for navigation via swipe
+        
+    - Airbnb
+        - Lottie Animation used for appealing animations
+        
+    - JTDS, a JDBC Driver neccecsary for secure connection to a SQL Server
+    
+    - Picasso for image loading
+    
+    - Google Play Services used for google authentication
+    
+    - Facebook auth used for facebook authentication
+
+# Directory Structures
+- ***gradle*** : Gradle settings
+- ***build.gradle*** : Gradle build at project level
+- ***app*** : Main app source code
+   - ***src/main***
+     - ***java/com/servo***: All main java backend code located here
+       - ***adapter***: Custom Adapters
+       - ***auth***: Authentication & Splash Activities
+       - ***database***: Custom Database Base Classes
+       - ***dialog***: Custom dialogs such as success/error
+       - ***home***: Homepage Activities
+       - ***utils***: Utilities such as constant and string manupilation
+       - ***view***: View holders located here
+     - ***res***: All XML Layouts, Colors, Drawables,etc...
+       - ***anim***: Animation files
+       - ***color***: All selected/non-selected colors
+       - ***drawable***: images and vectors
+       - ***font***: fonts uploaded
+       - ***layout***: main layout files
+       - ***menu***: menu's for transition
+       - ***navigation***: Navigation system
+       - ***raw***: Raw files for Lottie
+       - ***values***: Constant values used throughout
+     - ***AndroidManifest*** : Manifest file for managing activities
+     - ***link***: Where the linker is located.
+  - ***build.gradle*** : Gradle build at app module level 
+
+
+# Discussions
+
+If you have any concerns in this app make sure to issue a request in the issues tab. If you have ideas of improvments and would like to help, feel free to send a pull request!
+
 # FAQ
 
 <b>How much progress have you made?</b> I have essentially finished the registration system, home page feeds, searching for other users and services as well as adding services, and checking out your own profile!
 
 <b> Is this application available in the google play store ?</b> Yes it is! Go check 
-
 
 # LICENCE
 
