@@ -66,7 +66,7 @@ public class AddFragment extends Fragment {
                 //Cards of services
                 recyclerView = globalView.findViewById(R.id.addRecyclerView);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                adapter = new ServiceAdapter(getContext(), getServices(), getActivity());
+                adapter = new ServiceAdapter(getContext(), getServices(), getActivity(), false);
                 recyclerView.setAdapter(adapter);
             }
         } catch (Exception e) {

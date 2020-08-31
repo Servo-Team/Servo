@@ -63,7 +63,13 @@
             android:alpha="0"
             />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            app:layout_constraintStart_toStartOf="@+id/welcomeUsername"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeUsername" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

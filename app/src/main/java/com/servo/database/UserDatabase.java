@@ -356,6 +356,37 @@ public class UserDatabase extends Database{
         return allFollowers.contains(followerUsername);
     }
 
+    /**
+     * Get all the ID's of the people
+     * you are following
+     * @param follower the followers feeds
+     * @return all the IDS of masters
+     * @throws Exception
+     */
+    public List<Integer> getFollowingIDS(String follower) throws Exception{
+        User user = new User();
+        Connection connection = connect();
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(String.format("SELECT ID, FOLLOWERS_NAMES FROM USERS"));
+
+        List<Integer> fIDs = new ArrayList();
+        List<Integer> TempIDs = new ArrayList();
+        List<String>  Followers=new ArrayList();
+        while(rs.next()){
+            TempIDs.add(rs.getInt("ID"));
+            Followers.add(rs.getString("FOLLOWERS_NAMES"));
+        }
+
+        for(int i=0; i<Followers.size(); i++){
+            if(StringManupilation.getListNamesFromCompat(Followers.get(i)).contains(follower)){
+                fIDs.add(TempIDs.get(i));
+            }
+        }
+
+        return fIDs;
+    }
+
 
 
     public List<Object> getObjsWithAvatar(Activity act) throws Exception {

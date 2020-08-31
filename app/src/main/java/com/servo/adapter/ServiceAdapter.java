@@ -28,11 +28,13 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceHolder> {
     Context ctx;
     Activity act;
     List<ServiceModel> servicesAdded;
+    boolean home;
 
-    public ServiceAdapter(Context ctx, List<ServiceModel> servicesAdded, Activity act) {
+    public ServiceAdapter(Context ctx, List<ServiceModel> servicesAdded, Activity act, boolean home) {
         this.ctx = ctx;
         this.servicesAdded = servicesAdded;
         this.act = act;
+        this.home = home;
     }
 
     /**
@@ -91,30 +93,36 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceHolder> {
         holder.hDesc.setText(servicesAdded.get(position).getDesc());
 
 
-        if(servicesAdded.get(position).isFinished()){
+        if(!home && servicesAdded.get(position).isFinished()){
             holder.toggle.toggle();
             holder.anim.setAnimation(R.raw.done_blue);
+        } else if(home){
+            holder.anim.setAlpha(0.F);
         }
 
-        final ServiceHolder fHolder = holder;
-        holder.toggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    ServiceDatabase db = new ServiceDatabase();
-                    if (fHolder.toggle.isChecked()) {
-                        db.setFinishedOrUnfinished(servicesAdded.get(position).getServiceID(), Constants.SERVICE_FINISHED);
-                        Toast.makeText(act, "FINISHED!", Toast.LENGTH_LONG).show();
-                    } else {
-                        db.setFinishedOrUnfinished(servicesAdded.get(position).getServiceID(), Constants.SERVICE_PENDING);
-                        Toast.makeText(act, "UNFINISHED!", Toast.LENGTH_LONG).show();
+        if(!home) {
+            final ServiceHolder fHolder = holder;
+            holder.toggle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        ServiceDatabase db = new ServiceDatabase();
+                        if (fHolder.toggle.isChecked()) {
+                            db.setFinishedOrUnfinished(servicesAdded.get(position).getServiceID(), Constants.SERVICE_FINISHED);
+                            Toast.makeText(act, "FINISHED!", Toast.LENGTH_LONG).show();
+                        } else {
+                            db.setFinishedOrUnfinished(servicesAdded.get(position).getServiceID(), Constants.SERVICE_PENDING);
+                            Toast.makeText(act, "UNFINISHED!", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.err.println("ERROR ONBINDVIEWHOLDER SERVICE ADAPTER");
                     }
-                }catch (Exception e){
-                    e.printStackTrace();
-                    System.err.println("ERROR ONBINDVIEWHOLDER SERVICE ADAPTER");
                 }
-            }
-        });
+            });
+        } else{
+            holder.toggle.setAlpha(0.F);
+        }
 
         for(int i=0; i<servicesAdded.get(position).getChipText().length; i++){
             Chip chip = (Chip) act.getLayoutInflater().inflate(R.layout.servicechip, null, false);
