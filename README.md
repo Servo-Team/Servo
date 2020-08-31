@@ -9,9 +9,29 @@ Services range from anything to coding(freelancing) to producing beats
 to paying ur neighbor to maw your lawn :)
 
 
+# Releases
+<table>
+  <tr>
+    <th>Release Version</th>
+    <th>Release Date</th>
+    <th>Android APK's</th>
+  </tr>
+
+  <tr>
+   <td>V 0.1</td>
+   <td>PENDING</td>
+   <td>
+   <a href="https://github.com/Servo-Team/Servo"><img src="https://i.imgur.com/TNO0fqq.pngg" width="50"/></a>
+   </td>
+  </tr>
+  </tr>
+</table>
 
 # FAQ
-Coming Soon
+
+<b>How much progress have you made?</b> I have essentially finished the registration system, home page feeds, searching for other users and services as well as adding services, and checking out your own profile!
+
+<b> Is this application available in the google play store ?</b> Yes it is! Go check 
 
 
 # LICENCE
