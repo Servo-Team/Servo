@@ -88,7 +88,7 @@ If you have any concerns in this app make sure to issue a request in the issues 
 
 <b>How much progress have you made?</b> I have essentially finished the registration system, home page feeds, searching for other users and services as well as adding services, and checking out your own profile!
 
-<b> Is this application available in the google play store ?</b> Yes it is! Go check 
+<b> Is this application available in the google play store ?</b> Should be shortly, just waiting for google to approve the app.
 
 # LICENCE
 
