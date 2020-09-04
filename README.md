@@ -19,9 +19,11 @@ to paying ur neighbor to maw your lawn :)
 
   <tr>
    <td>V 0.1</td>
-   <td>PENDING</td>
+   <td>09/04/2020</td>
    <td>
-   <a href="https://github.com/Servo-Team/Servo"><img src="https://i.imgur.com/TNO0fqq.pngg" width="50"/></a>
+     <a href='https://play.google.com/store/apps/details?id=com.servo.auth&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+      <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/>
+     </a>
    </td>
   </tr>
   </tr>
@@ -88,7 +90,7 @@ If you have any concerns in this app make sure to issue a request in the issues 
 
 <b>How much progress have you made?</b> I have essentially finished the registration system, home page feeds, searching for other users and services as well as adding services, and checking out your own profile!
 
-<b> Is this application available in the google play store ?</b> Should be shortly, just waiting for google to approve the app.
+<b> Is this application available in the google play store ?</b> Yes it is available! Look at the releases above in the README and select the version you would like!
 
 # LICENCE
 
